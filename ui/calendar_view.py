@@ -3,7 +3,7 @@ import datetime
 
 class CalendarView:
     def __init__(self, master):
-        self.frame = tk.Frame(master, bg="lightblue")
+        self.frame = tk.Frame(master, bg="#404040")
         self.frame.rowconfigure(1, weight=1)
         self.frame.columnconfigure(0, weight=1)
 
