@@ -5,7 +5,26 @@ from ui.calendar_view import CalendarView                            # importa l
 from tkinter import PhotoImage                                       # importa la classe PhotoImage
 
 class MainWindow: # Classe principale MainWindow
-    def __init__(self, root):
+    # Metodi ---------------------------------------------------------------------------------------------------
+    def show_welcome(self):
+        self.notes_view.frame.pack_forget()
+        self.calendar_view.frame.pack_forget()
+        self.welcome_view.frame.pack(fill="both", expand=True)
+
+    def show_notes(self):
+        self.welcome_view.frame.pack_forget()
+        self.calendar_view.frame.pack_forget()
+        self.notes_view.frame.pack(fill="both", expand=True)
+
+    def show_calendar(self):
+        self.welcome_view.frame.pack_forget()
+        self.notes_view.frame.pack_forget()
+        self.calendar_view.frame.pack(fill="both", expand=True)
+    
+    
+
+    def __init__(self, root): # Costruttore-----------------------------------------------------------------------
+
         self.root = root                                             # Inizializza la finestra principale
         self.root.title("Edgar Notes: Note e Calendario")            # Imposta il titolo della finestra
 
@@ -23,7 +42,8 @@ class MainWindow: # Classe principale MainWindow
 
         # Pulsanti nella sidebar ----------------------------------------------------------------------------------
 
-        # Carica immagini (generiche, puoi cambiarne il percorso)
+        # Carica immagini (path sostituibile. Momentaneamente su assets)
+
         self.welcome_img = PhotoImage(file="assets/icons/welcome.png")
         self.welcome_hover = PhotoImage(file="assets/icons/welcome_hover.png")
 
@@ -34,23 +54,24 @@ class MainWindow: # Classe principale MainWindow
         self.calendar_hover = PhotoImage(file="assets//icons/calendar_hover.png")
 
         # Crea i bottoni con immagine e hover
-        self.welcome_button = tk.Button(self.sidebar, image=self.welcome_img, bg="#272727", borderwidth=0,
-                                        highlightthickness=0, relief="flat", activebackground="#272727",
-                                        command=self.show_welcome)
-        self.welcome_button.pack(pady=20)
-        self.welcome_button.bind("<Enter>", lambda e: self.welcome_button.config(image=self.welcome_hover))
-        self.welcome_button.bind("<Leave>", lambda e: self.welcome_button.config(image=self.welcome_img))
 
-        self.notes_button = tk.Button(self.sidebar, image=self.notes_img, bg="#272727", borderwidth=0,
-                                      highlightthickness=0, relief="flat", activebackground="#272727",
-                                      command=self.show_notes)
+        # Home button
+        self.welcome_button = tk.Button(self.sidebar, image=self.welcome_img, bg="#272727", borderwidth=0, highlightthickness=0, relief="flat", 
+                                        activebackground="#272727",command=self.show_welcome)
+        self.welcome_button.pack(pady=20) # posiziona il pulsante
+        self.welcome_button.bind("<Enter>", lambda e: self.welcome_button.config(image=self.welcome_hover)) # al passaggio del mouse
+        self.welcome_button.bind("<Leave>", lambda e: self.welcome_button.config(image=self.welcome_img))   # al ritorno del mouse
+        
+        # Notes button
+        self.notes_button = tk.Button(self.sidebar, image=self.notes_img, bg="#272727", borderwidth=0, highlightthickness=0, relief="flat", 
+                                      activebackground="#272727",command=self.show_notes)
         self.notes_button.pack(pady=20)
         self.notes_button.bind("<Enter>", lambda e: self.notes_button.config(image=self.notes_hover))
         self.notes_button.bind("<Leave>", lambda e: self.notes_button.config(image=self.notes_img))
 
-        self.calendar_button = tk.Button(self.sidebar, image=self.calendar_img, bg="#272727", borderwidth=0,
-                                         highlightthickness=0, relief="flat", activebackground="#272727",
-                                         command=self.show_calendar)
+        # Calendar button
+        self.calendar_button = tk.Button(self.sidebar, image=self.calendar_img, bg="#272727", borderwidth=0, highlightthickness=0, relief="flat", 
+                                         activebackground="#272727",command=self.show_calendar)
         self.calendar_button.pack(pady=20)
         self.calendar_button.bind("<Enter>", lambda e: self.calendar_button.config(image=self.calendar_hover))
         self.calendar_button.bind("<Leave>", lambda e: self.calendar_button.config(image=self.calendar_img))
@@ -58,24 +79,11 @@ class MainWindow: # Classe principale MainWindow
 
         # Inizializza viste -----------------------------------------------------------------------------------------
 
-        self.welcome_view = WelcomeView(self.content_frame)
-        self.notes_view = NotesView(self.content_frame)
-        self.calendar_view = CalendarView(self.content_frame)
+        self.welcome_view = WelcomeView(self.content_frame)     # Inizializza la vista di benvenuto
+        self.notes_view = NotesView(self.content_frame)         # Inizializza la vista note
+        self.calendar_view = CalendarView(self.content_frame)   # Inizializza la vista calendario
 
         # Mostra per default la vista note
         self.show_welcome()
 
-    def show_welcome(self):
-        self.notes_view.frame.pack_forget()
-        self.calendar_view.frame.pack_forget()
-        self.welcome_view.frame.pack(fill="both", expand=True)
-
-    def show_notes(self):
-        self.welcome_view.frame.pack_forget()
-        self.calendar_view.frame.pack_forget()
-        self.notes_view.frame.pack(fill="both", expand=True)
-
-    def show_calendar(self):
-        self.welcome_view.frame.pack_forget()
-        self.notes_view.frame.pack_forget()
-        self.calendar_view.frame.pack(fill="both", expand=True)
+    
