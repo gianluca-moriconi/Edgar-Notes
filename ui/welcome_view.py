@@ -1,25 +1,25 @@
 import tkinter as tk
-from tkinter import PhotoImage  
-import datetime
 
 class WelcomeView:
     def __init__(self, master):
-        self.frame = tk.Frame(master, bg="#404040")
-        self.frame.rowconfigure(1, weight=1)
-        self.frame.columnconfigure(0, weight=1)
+        self.frame = tk.Frame(master, bg="white")
+        self.frame.grid_rowconfigure(0, weight=1)
+        self.frame.grid_columnconfigure(0, weight=1)
 
+        content = tk.Frame(self.frame, bg="white")
+        content.grid(row=0, column=0)
 
-        today = datetime.date.today()
-        self.date_label = tk.Label(self.frame, text=f"Oggi: {today.strftime('%d/%m/%Y')}")
-        self.date_label.grid(row=0, column=0, pady=10)
+        # Logo PNG semplice da path relativo
+        self.logo_img = tk.PhotoImage(file="assets/icons/logo_edgar.png")
+        logo_label = tk.Label(content, image=self.logo_img, bg="white")
+        logo_label.pack(pady=(0, 20))
 
-
-        self.logo_img = PhotoImage(file="assets/icons/logo_edgar.png")
-        self.logo_label = tk.Label(self.frame, image=self.logo_img, bg="#404040")
-        self.logo_label.grid(row=1, column=0, pady=10)
-
-
-        #self.label = tk.Label(self.frame, text="Edgar Notes", font=("Arial", 26))
-        #self.label.grid(row=1, column=0, pady=10)
-
-        
+        desc_label = tk.Label(
+            content,
+            text="Benvenuto nell'app di note!\nOrganizza e salva i tuoi appunti con semplicità.",
+            font=("Arial", 14),
+            bg="white",
+            fg="#34495e",
+            justify="center"
+        )
+        desc_label.pack()
