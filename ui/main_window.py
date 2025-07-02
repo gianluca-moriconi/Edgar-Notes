@@ -14,7 +14,7 @@ class MainWindow:
         self.container.columnconfigure(0, weight=0)  # sidebar
         self.container.columnconfigure(1, weight=1)  # main content
 
-        self.sidebar = tk.Frame(self.container, bg="#2c3e50")
+        self.sidebar = tk.Frame(self.container, bg="#272727")
         self.sidebar.grid(row=0, column=0, sticky="ns")
 
         self.content_frame = tk.Frame(self.container, bg="white")
